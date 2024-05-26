@@ -1,0 +1,56 @@
+:root {
+  --vt-c-white: #0174BE;
+  --vt-c-white-soft: #f0f0f0;
+  --vt-c-black: #181818;
+  --vt-c-black-soft: #222222;
+  --vt-c-indigo: #193959;
+}
+
+:root {
+  --color-background: var(--vt-c-black);
+  --color-text: var(--vt-c-white);
+  --color-border: var(--vt-c-white-soft);
+  --color-button-bg: var(--vt-c-indigo);
+  --color-button-text: var(--vt-c-white);
+}
+
+.calculator {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background: var(--color-background);
+  color: var(--color-text);
+  transition: background-color 0.5s, color 0.5s;
+}
+
+h1 {
+  color: var(--vt-c-indigo);
+  font-size: 24px;
+}
+
+h3 {
+  color: var(--vt-c-white-soft);
+}
+
+input[type="number"] {
+  padding: 10px;
+  margin: 5px;
+  border: 1px solid var(--color-border);
+  background: var(--color-background);
+  color: var(--color-text);
+}
+
+input[type="button"] {
+  padding: 10px 20px;
+  margin: 5px;
+  border: none;
+  background: var(--color-button-bg);
+  color: var(--color-button-text);
+  cursor: pointer;
+}
+
+input[type="button"]:hover {
+  background: var(--color-border);
+}

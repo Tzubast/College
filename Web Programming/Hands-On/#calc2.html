@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>calc</title>
+    </head>
+<body>
+
+<h2>#Calc2</h2>
+
+<form>
+<input type="text" id="firstnum" />
+<input type="text" id="secondnum" />
+<input type="button" onClick="multiplyBy()" Value="×"/>
+<input type="button" onClick="divideBy()" Value="÷"/>
+<input type="button" onClick="additionBy()" Value="+"/>
+<input type="button" onClick="substractedBy()" Value="–"/>
+</form>
+
+<p>The result is: <span id="result"></span> </p>
+
+<script>
+function multiplyBy()
+{
+	num1= document.getElementById("firstnum").value;
+    num2= document.getElementById("secondnum").value;
+    document.getElementById("result").innerHTML = num1 * num2;
+}
+function divideBy()
+{
+	num1= document.getElementById("firstnum").value;
+    num2= document.getElementById("secondnum").value;
+    document.getElementById("result").innerHTML = num1 / num2;
+}
+function additionBy()
+{
+	num1= parseFloat(document.getElementById("firstnum").value);
+    num2= parseFloat(document.getElementById("secondnum").value);
+    document.getElementById("result").innerHTML = num1 + num2;
+}
+function substractedBy()
+{
+	num1= document.getElementById("firstnum").value;
+    num2= document.getElementById("secondnum").value;
+    document.getElementById("result").innerHTML = num1 - num2;
+}
+
+
+</script>
+
+</body>
+</html> 

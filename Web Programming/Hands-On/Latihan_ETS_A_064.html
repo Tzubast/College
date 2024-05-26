@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Karyo's Theater</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-image: url('https://drive.google.com/uc?export=view&id=1UivNaMdsV_xBAKuc6NzI97dB9P2OKGgr');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-position: center;
+        }
+
+        .card {
+            max-width: 1450px;
+            width: 100%;
+            background-color: #940B92;
+            border: none;
+        }
+
+        .card img {
+            max-height: 700px;
+        }
+
+        .card-title, .card-text {
+            color: #DA0C81;
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center text-white">Karyo's Theater</h1>
+        <div class="form-group">
+            <input type="text" id="searchInput" class="form-control" placeholder="Search for a movie" onkeypress="searchKeyPress(event)">
+        </div>
+        <div class="text-center">
+            <button class="btn btn-primary" id="searchButton">Search</button>
+        </div>
+    </div>
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-md-12 mx-auto">
+                <div class="card">
+                    <div class="row no-gutters">
+                        <div class="col-md-4">
+                            <img src="" class="card-img" alt="">
+                        </div>
+                        <div class="col-md-8">
+                            <div class="card-body">
+                                <h5 class="card-title"></h5>
+                                <p class="card-text"><strong>Year:</strong> </p>
+                                <p class="card-text"><strong>Genre:</strong> </p>
+                                <p class="card-text"><strong>Plot:</strong> </p>
+                                <p class="card-text"><strong>IMDB Rating:</strong> </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function searchKeyPress(event) {
+            if (event.keyCode === 13) {
+                event.preventDefault();
+                searchMovie();
+            }
+        }
+
+        function searchMovie() {
+            var apiKey = '12defad5';
+            var movieTitle = $('#searchInput').val();
+            var apiUrl = 'http://www.omdbapi.com/?t=' + movieTitle + '&apikey=' + apiKey;
+
+            $.ajax({
+                type: 'GET',
+                url: apiUrl,
+                dataType: 'json',
+                success: function(data) {
+                    if (data.Response === 'True') {
+                        $('.card img').attr('src', data.Poster);
+                        $('.card img').attr('alt', data.Title);
+                        $('.card-title').text(data.Title);
+                        $('.card-text:eq(0)').html(`<strong>Year:</strong> ${data.Year}`);
+                        $('.card-text:eq(1)').html(`<strong>Genre:</strong> ${data.Genre}`);
+                        $('.card-text:eq(2)').html(`<strong>Plot:</strong> ${data.Plot}`);
+                        $('.card-text:eq(3)').html(`<strong>IMDB Rating:</strong> ${data.imdbRating}`);
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Movie not found!',
+                        });
+                        $('.card img').attr('src', '');
+                        $('.card img').attr('alt', '');
+                        $('.card-title').text('');
+                        $('.card-text').html('');
+                    }
+                },
+                error: function() {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'An error occurred while fetching data!',
+                    });
+                    $('.card img').attr('src', '');
+                    $('.card img').attr('alt', '');
+                    $('.card-title').text('');
+                    $('.card-text').html('');
+                }
+            });
+        }
+
+        $(document).ready(function() {
+            $('#searchButton').click(searchMovie);
+        });
+    </script>
+</body>
+</html>
